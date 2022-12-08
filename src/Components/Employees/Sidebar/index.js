@@ -5,7 +5,7 @@ import ModalConfirm from 'Components/Shared/Modal/ModalConfirm';
 import { Link } from 'react-router-dom';
 import { logout } from 'redux/auth/thunks';
 import { useSelector, useDispatch } from 'react-redux';
-import { confirmModalOpen, confirmModalClose } from 'redux/admins/actions';
+import { confirmModalOpen, confirmModalClose } from 'redux/shared/modals/actions';
 
 const Sidebar = () => {
   const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { Schema } from './validations';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import { messageModalClose, messageModalOpen } from 'redux/auth/actions';
+import { messageModalClose, messageModalOpen } from 'redux/shared/modals/actions';
 
 import ModalMessage from 'Components/Shared/Modal/ModalMessage';
 import Input from 'Components/Shared/Inputs';

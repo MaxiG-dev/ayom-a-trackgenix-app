@@ -1,15 +1,17 @@
 import { combineReducers } from 'redux';
 
-import authReducer from '../auth/reducer';
-import adminsReducer from '../admins/reducer';
-import empolyeesReducer from '../employees/reducer';
-import projectsReducer from '../projects/reducer';
-import superAdminsReducer from '../super-admins/reducer';
-import tasksReducer from '../tasks/reducer';
-import timesheetsReducer from '../timesheets/reducer';
+import authReducer from 'redux/auth/reducer';
+import modalsReducer from 'redux/shared/modals/reducer';
+import adminsReducer from 'redux/admins/reducer';
+import empolyeesReducer from 'redux/employees/reducer';
+import projectsReducer from 'redux/projects/reducer';
+import superAdminsReducer from 'redux/super-admins/reducer';
+import tasksReducer from 'redux/tasks/reducer';
+import timesheetsReducer from 'redux/timesheets/reducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  modals: modalsReducer,
   employees: empolyeesReducer,
   admins: adminsReducer,
   projects: projectsReducer,

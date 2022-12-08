@@ -2,22 +2,18 @@ import {
   GET_TIMESHEETS_PENDING,
   GET_TIMESHEETS_SUCCESS,
   GET_TIMESHEETS_ERROR,
-  GET_BY_ID_TIMESHEETS_PENDING,
-  GET_BY_ID_TIMESHEETS_SUCCESS,
-  GET_BY_ID_TIMESHEETS_ERROR,
-  DELETE_TIMESHEETS_PENDING,
-  DELETE_TIMESHEETS_SUCCESS,
-  DELETE_TIMESHEETS_ERROR,
+  GETBYID_TIMESHEETS_PENDING,
+  GETBYID_TIMESHEETS_SUCCESS,
+  GETBYID_TIMESHEETS_ERROR,
   POST_TIMESHEETS_PENDING,
   POST_TIMESHEETS_SUCCESS,
   POST_TIMESHEETS_ERROR,
   PUT_TIMESHEETS_PENDING,
   PUT_TIMESHEETS_SUCCESS,
   PUT_TIMESHEETS_ERROR,
-  MESSAGE_MODAL_OPEN,
-  MESSAGE_MODAL_CLOSE,
-  CONFIRM_MODAL_OPEN,
-  CONFIRM_MODAL_CLOSE
+  DELETE_TIMESHEETS_PENDING,
+  DELETE_TIMESHEETS_SUCCESS,
+  DELETE_TIMESHEETS_ERROR
 } from './constants';
 
 const INITIAL_STATE = {
@@ -46,53 +42,27 @@ const timesheetsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
         modalContent: { title: 'ERROR!', content: `Could not GET Timesheets! ${action.payload}` },
         showModalMessage: true
       };
-    case GET_BY_ID_TIMESHEETS_PENDING:
+    case GETBYID_TIMESHEETS_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case GET_BY_ID_TIMESHEETS_SUCCESS:
+    case GETBYID_TIMESHEETS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         item: action.payload
       };
-    case GET_BY_ID_TIMESHEETS_ERROR:
+    case GETBYID_TIMESHEETS_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
-        modalContent: { title: 'ERROR!', content: `Could not GET Timesheets! ${action.payload}` },
-        showModalMessage: true
-      };
-    case DELETE_TIMESHEETS_PENDING:
-      return {
-        ...state,
-        isLoading: true
-      };
-    case DELETE_TIMESHEETS_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        list: [...state.list.filter((item) => item._id !== action.payload)],
-        modalContent: {
-          title: 'SUCCESS!',
-          content: `Timesheet whit id ${action.payload} successfully deleted`
-        },
-        showModalMessage: true
-      };
-    case DELETE_TIMESHEETS_ERROR:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload,
         modalContent: {
           title: 'ERROR!',
-          content: `Could not DELETE Timesheet! ${action.payload}`
+          content: `Could not GET Timesheets! ${action.payload}`
         },
         showModalMessage: true
       };
@@ -109,7 +79,7 @@ const timesheetsReducer = (state = INITIAL_STATE, action) => {
         showConfirmModal: false,
         modalContent: {
           title: 'SUCCESS!',
-          content: action.reqMessage
+          content: `TimeSheet Successfully CREATED`
         },
         showModalMessage: true
       };
@@ -117,11 +87,10 @@ const timesheetsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
         showConfirmModal: false,
         modalContent: {
           title: 'ERROR!',
-          content: `Could not add new TimeSheet! ${action.payload}`
+          content: `Could not CREATE TimeSheet! ${action.payload}`
         },
         showModalMessage: true
       };
@@ -138,7 +107,7 @@ const timesheetsReducer = (state = INITIAL_STATE, action) => {
         showConfirmModal: false,
         modalContent: {
           title: 'SUCCESS!',
-          content: action.reqMessage
+          content: `TimeSheet Successfully UPDATED`
         },
         showModalMessage: true
       };
@@ -146,41 +115,37 @@ const timesheetsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
-        showConfirmModal: false,
         modalContent: {
           title: 'ERROR!',
-          content: `Could not update new TimeSheet! ${action.payload}`
+          content: `Could not UPDATE TimeSheet! ${action.payload}`
         },
         showModalMessage: true
       };
-    case MESSAGE_MODAL_OPEN:
+    case DELETE_TIMESHEETS_PENDING:
       return {
         ...state,
+        isLoading: true
+      };
+    case DELETE_TIMESHEETS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        list: [...state.list.filter((item) => item._id !== action.payload)],
         modalContent: {
-          title: action.payload.title,
-          content: action.payload.content
+          title: 'SUCCESS!',
+          content: `Timesheet whit id ${action.payload} successfully DELETED`
         },
         showModalMessage: true
       };
-    case MESSAGE_MODAL_CLOSE:
+    case DELETE_TIMESHEETS_ERROR:
       return {
         ...state,
-        showModalMessage: false
-      };
-    case CONFIRM_MODAL_OPEN:
-      return {
-        ...state,
+        isLoading: false,
         modalContent: {
-          title: 'Confirm:',
-          content: action.payload
+          title: 'ERROR!',
+          content: `Could not DELETE Timesheet! ${action.payload}`
         },
-        showConfirmModal: true
-      };
-    case CONFIRM_MODAL_CLOSE:
-      return {
-        ...state,
-        showConfirmModal: false
+        showModalMessage: true
       };
     default:
       return state;

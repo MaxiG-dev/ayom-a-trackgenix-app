@@ -31,7 +31,7 @@ export const getTimesheets = (token) => {
   };
 };
 
-export const getByIdTimesheet = (id, token) => {
+export const getByIdTimesheets = (id, token) => {
   return async (dispatch) => {
     dispatch(getByIdTimesheetsPending());
     try {
@@ -50,7 +50,7 @@ export const getByIdTimesheet = (id, token) => {
   };
 };
 
-export const addTimeSheet = (input, token) => {
+export const postTimeSheets = (input, token) => {
   return async (dispatch) => {
     dispatch(postTimesheetsPending());
     try {
@@ -83,7 +83,7 @@ export const addTimeSheet = (input, token) => {
   };
 };
 
-export const deleteTimeSheet = (id, token) => {
+export const deleteTimeSheets = (id, token) => {
   return async (dispatch) => {
     dispatch(deleteTimesheetsPending());
     try {

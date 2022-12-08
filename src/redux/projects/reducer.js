@@ -2,22 +2,18 @@ import {
   GET_PROJECTS_PENDING,
   GET_PROJECTS_SUCCESS,
   GET_PROJECTS_ERROR,
-  CREATE_PROJECT_PENDING,
-  CREATE_PROJECT_SUCCESS,
-  CREATE_PROJECT_ERROR,
-  UPDATE_PROJECT_PENDING,
-  UPDATE_PROJECT_SUCCESS,
-  UPDATE_PROJECT_ERROR,
-  DELETE_PROJECT_PENDING,
-  DELETE_PROJECT_SUCCESS,
-  DELETE_PROJECT_ERROR,
-  MESSAGE_MODAL_OPEN,
-  MESSAGE_MODAL_CLOSE,
-  CONFIRM_MODAL_OPEN,
-  CONFIRM_MODAL_CLOSE,
-  GET_BY_ID_PROJECT_PENDING,
-  GET_BY_ID_PROJECT_SUCCESS,
-  GET_BY_ID_PROJECT_ERROR
+  GETBYID_PROJECTS_PENDING,
+  GETBYID_PROJECTS_SUCCESS,
+  GETBYID_PROJECTS_ERROR,
+  POST_PROJECTS_PENDING,
+  POST_PROJECTS_SUCCESS,
+  POST_PROJECTS_ERROR,
+  PUT_PROJECTS_PENDING,
+  PUT_PROJECTS_SUCCESS,
+  PUT_PROJECTS_ERROR,
+  DELETE_PROJECTS_PENDING,
+  DELETE_PROJECTS_SUCCESS,
+  DELETE_PROJECTS_ERROR
 } from './constants';
 
 const INITIAL_STATE = {
@@ -39,146 +35,117 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
     case GET_PROJECTS_SUCCESS:
       return {
         ...state,
-        list: action.payload,
-        isLoading: false
+        isLoading: false,
+        list: action.payload
       };
     case GET_PROJECTS_ERROR:
       return {
         ...state,
         isLoading: false,
-        modalContent: { title: 'ERROR!', content: `Could not GET projects!\n${action.payload}` },
+        modalContent: { title: 'ERROR!', content: `Could not GET Projects! ${action.payload}` },
         showModalMessage: true
       };
-    case GET_BY_ID_PROJECT_PENDING:
+    case GETBYID_PROJECTS_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case GET_BY_ID_PROJECT_SUCCESS:
-      return {
-        ...state,
-        item: action.payload,
-        isLoading: false
-      };
-    case GET_BY_ID_PROJECT_ERROR:
+    case GETBYID_PROJECTS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        modalContent: { title: 'ERROR!', content: `Could not GET project!\n${action.payload}` },
-        showModalMessage: true
+        item: action.payload
       };
-    case CREATE_PROJECT_PENDING:
+    case GETBYID_PROJECTS_ERROR:
       return {
         ...state,
-        isLoading: true
-      };
-    case CREATE_PROJECT_SUCCESS:
-      return {
-        ...state,
-        list: [...state.list, action.payload],
         isLoading: false,
-        showConfirmModal: false,
         modalContent: {
-          title: 'SUCCESS!',
-          content: `Project whit id ${action.msg} successfully created`
+          title: 'ERROR!',
+          content: `Could not GET Project! ${action.payload}`
         },
         showModalMessage: true
       };
-    case CREATE_PROJECT_ERROR:
+    case POST_PROJECTS_PENDING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case POST_PROJECTS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
+        showConfirmModal: false,
+        list: [...state.list, action.payload],
+        modalContent: {
+          title: 'SUCCESS!',
+          content: `Project Successfully CREATED`
+        },
+        showModalMessage: true
+      };
+    case POST_PROJECTS_ERROR:
+      return {
+        ...state,
+        isLoading: false,
         showConfirmModal: false,
         modalContent: {
           title: 'ERROR!',
-          content: `Could not create Project! ${action.payload}`
+          content: `Could not CREATE Project! ${action.payload}`
         },
         showModalMessage: true
       };
-    case UPDATE_PROJECT_PENDING:
+    case PUT_PROJECTS_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case UPDATE_PROJECT_SUCCESS:
+    case PUT_PROJECTS_SUCCESS:
       return {
         ...state,
-        list: [...state.list, action.payload],
         isLoading: false,
         showConfirmModal: false,
         modalContent: {
           title: 'SUCCESS!',
-          content: action.msg
+          content: `Project Successfully UPDATED`
         },
-        showModalMessage: true
+        showModalMessage: true,
+        list: [...state.list, action.payload]
       };
-    case UPDATE_PROJECT_ERROR:
+    case PUT_PROJECTS_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
         modalContent: {
           title: 'ERROR',
-          content: action.payload
+          content: `Could not UPDATE Project! ${action.payload}`
         },
         showModalMessage: true
       };
-    case DELETE_PROJECT_PENDING:
+    case DELETE_PROJECTS_PENDING:
       return {
         ...state,
-        showModalMessage: !state.showModalMessage,
         isLoading: true
       };
-    case DELETE_PROJECT_SUCCESS:
+    case DELETE_PROJECTS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         list: [...state.list.filter((item) => item._id !== action.payload)],
         modalContent: {
           title: 'SUCCESS!',
-          content: `Project whit id ${action.payload} successfully deleted`
+          content: `Project whit id ${action.payload} successfully DELETED`
         },
         showModalMessage: true
       };
-    case DELETE_PROJECT_ERROR:
+    case DELETE_PROJECTS_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
         modalContent: {
           title: 'ERROR!',
           content: `Could not DELETE project! ${action.payload}`
         },
         showModalMessage: true
-      };
-    case MESSAGE_MODAL_OPEN:
-      return {
-        ...state,
-        modalContent: {
-          title: action.payload.title,
-          content: action.payload
-        },
-        showModalMessage: true
-      };
-    case MESSAGE_MODAL_CLOSE:
-      return {
-        ...state,
-        showModalMessage: false
-      };
-    case CONFIRM_MODAL_OPEN:
-      return {
-        ...state,
-        modalContent: {
-          title: 'Confirm:',
-          content: action.payload
-        },
-        showConfirmModal: true
-      };
-    case CONFIRM_MODAL_CLOSE:
-      return {
-        ...state,
-        showConfirmModal: false
       };
     default:
       return state;

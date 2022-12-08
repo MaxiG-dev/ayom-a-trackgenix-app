@@ -5,12 +5,12 @@ import {
   getByIdAdminsPending,
   getByIdAdminsSuccess,
   getByIdAdminsError,
-  createAdminsPending,
-  createAdminsSuccess,
-  createAdminsError,
-  updateAdminsPending,
-  updateAdminsSuccess,
-  updateAdminsError,
+  postAdminsPending,
+  postAdminsSuccess,
+  postAdminsError,
+  putAdminsPending,
+  putAdminsSuccess,
+  putAdminsError,
   deleteAdminsPending,
   deleteAdminsSuccess,
   deleteAdminsError
@@ -47,9 +47,9 @@ export const getByIdAdmin = (id) => {
   };
 };
 
-export const createAdmins = (input) => {
+export const postAdmins = (input) => {
   return async (dispatch) => {
-    dispatch(createAdminsPending());
+    dispatch(postAdminsPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/admin`, {
         method: 'POST',
@@ -66,20 +66,20 @@ export const createAdmins = (input) => {
       });
       if (response.status == 201) {
         const data = await response.json();
-        dispatch(createAdminsSuccess(data.data, data.message));
+        dispatch(postAdminsSuccess(data.data, data.message));
       } else {
         const data = await response.json();
-        dispatch(createAdminsError(data.data));
+        dispatch(postAdminsError(data.data));
       }
     } catch (error) {
-      dispatch(createAdminsError(error.toString()));
+      dispatch(postAdminsError(error.toString()));
     }
   };
 };
 
-export const updateAdmins = (input, id) => {
+export const putAdmins = (input, id) => {
   return async (dispatch) => {
-    dispatch(updateAdminsPending());
+    dispatch(putAdminsPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/admin/${id}`, {
         method: 'PUT',
@@ -96,13 +96,13 @@ export const updateAdmins = (input, id) => {
       });
       if (response.status == 200) {
         const data = await response.json();
-        dispatch(updateAdminsSuccess(data.data, data.message));
+        dispatch(putAdminsSuccess(data.data, data.message));
       } else {
         const data = await response.json();
-        dispatch(updateAdminsError(data.data));
+        dispatch(putAdminsError(data.data));
       }
     } catch (error) {
-      dispatch(updateAdminsError(error.toString()));
+      dispatch(putAdminsError(error.toString()));
     }
   };
 };

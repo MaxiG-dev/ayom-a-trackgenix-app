@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { confirmModalOpen, confirmModalClose, messageModalClose } from 'redux/employees/actions';
-import { createEmployee } from 'redux/employees/thunks';
+import {
+  confirmModalOpen,
+  confirmModalClose,
+  messageModalClose
+} from 'redux/shared/modals/actions';
+import { postEmployees } from 'redux/employees/thunks';
 
 import ModalConfirm from 'Components/Shared/Modal/ModalConfirm';
 import ModalMessage from 'Components/Shared/Modal/ModalMessage';
@@ -48,7 +52,7 @@ function SignUp(props) {
   });
 
   const onConfirm = () => {
-    dispatch(createEmployee(formValues));
+    dispatch(postEmployees(formValues));
     dispatch(confirmModalClose());
   };
 

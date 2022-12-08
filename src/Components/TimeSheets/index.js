@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTimesheets, deleteTimeSheet } from 'redux/timesheets/thunks';
-import { confirmModalOpen, confirmModalClose, messageModalClose } from 'redux/timesheets/actions';
+import { getTimesheets, deleteTimeSheets } from 'redux/timesheets/thunks';
+import {
+  confirmModalOpen,
+  confirmModalClose,
+  messageModalClose
+} from 'redux/shared/modals/actions';
 import ModalConfirm from 'Components/Shared/Modal/ModalConfirm';
 import ModalMessage from 'Components/Shared/Modal/ModalMessage';
 import Table from 'Components/Shared/Table/Table';
@@ -25,7 +29,7 @@ const TimeSheets = (props) => {
   }, []);
 
   const onConfirm = () => {
-    dispatch(deleteTimeSheet(itemId));
+    dispatch(deleteTimeSheets(itemId));
     dispatch(confirmModalClose());
   };
 

@@ -2,22 +2,18 @@ import {
   GET_TIMESHEETS_PENDING,
   GET_TIMESHEETS_SUCCESS,
   GET_TIMESHEETS_ERROR,
-  GET_BY_ID_TIMESHEETS_PENDING,
-  GET_BY_ID_TIMESHEETS_SUCCESS,
-  GET_BY_ID_TIMESHEETS_ERROR,
-  DELETE_TIMESHEETS_PENDING,
-  DELETE_TIMESHEETS_SUCCESS,
-  DELETE_TIMESHEETS_ERROR,
+  GETBYID_TIMESHEETS_PENDING,
+  GETBYID_TIMESHEETS_SUCCESS,
+  GETBYID_TIMESHEETS_ERROR,
   POST_TIMESHEETS_PENDING,
   POST_TIMESHEETS_SUCCESS,
   POST_TIMESHEETS_ERROR,
   PUT_TIMESHEETS_PENDING,
   PUT_TIMESHEETS_SUCCESS,
   PUT_TIMESHEETS_ERROR,
-  MESSAGE_MODAL_OPEN,
-  MESSAGE_MODAL_CLOSE,
-  CONFIRM_MODAL_OPEN,
-  CONFIRM_MODAL_CLOSE
+  DELETE_TIMESHEETS_PENDING,
+  DELETE_TIMESHEETS_SUCCESS,
+  DELETE_TIMESHEETS_ERROR
 } from './constants';
 
 export const getTimesheetsPending = () => {
@@ -42,20 +38,20 @@ export const getTimesheetsError = (error) => {
 
 export const getByIdTimesheetsPending = () => {
   return {
-    type: GET_BY_ID_TIMESHEETS_PENDING
+    type: GETBYID_TIMESHEETS_PENDING
   };
 };
 
 export const getByIdTimesheetsSuccess = (data) => {
   return {
-    type: GET_BY_ID_TIMESHEETS_SUCCESS,
+    type: GETBYID_TIMESHEETS_SUCCESS,
     payload: data
   };
 };
 
 export const getByIdTimesheetsError = (error) => {
   return {
-    type: GET_BY_ID_TIMESHEETS_ERROR,
+    type: GETBYID_TIMESHEETS_ERROR,
     payload: error
   };
 };
@@ -66,10 +62,10 @@ export const deleteTimesheetsPending = () => {
   };
 };
 
-export const deleteTimesheetsSuccess = (id) => {
+export const deleteTimesheetsSuccess = (data) => {
   return {
     type: DELETE_TIMESHEETS_SUCCESS,
-    payload: id
+    payload: data
   };
 };
 
@@ -86,11 +82,10 @@ export const postTimesheetsPending = () => {
   };
 };
 
-export const postTimesheetsSuccess = (data, msg) => {
+export const postTimesheetsSuccess = (data) => {
   return {
     type: POST_TIMESHEETS_SUCCESS,
-    payload: data,
-    reqMessage: msg
+    payload: data
   };
 };
 
@@ -106,11 +101,10 @@ export const putTimesheetsPending = () => {
   };
 };
 
-export const putTimesheetsSuccess = (data, msg) => {
+export const putTimesheetsSuccess = (data) => {
   return {
     type: PUT_TIMESHEETS_SUCCESS,
-    payload: data,
-    reqMessage: msg
+    payload: data
   };
 };
 
@@ -118,31 +112,5 @@ export const putTimesheetsError = (error) => {
   return {
     type: PUT_TIMESHEETS_ERROR,
     payload: error
-  };
-};
-
-export const messageModalOpen = (content) => {
-  return {
-    type: MESSAGE_MODAL_OPEN,
-    payload: content
-  };
-};
-
-export const messageModalClose = () => {
-  return {
-    type: MESSAGE_MODAL_CLOSE
-  };
-};
-
-export const confirmModalOpen = (content) => {
-  return {
-    type: CONFIRM_MODAL_OPEN,
-    payload: content
-  };
-};
-
-export const confirmModalClose = () => {
-  return {
-    type: CONFIRM_MODAL_CLOSE
   };
 };

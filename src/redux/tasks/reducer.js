@@ -2,22 +2,18 @@ import {
   GET_TASKS_PENDING,
   GET_TASKS_SUCCESS,
   GET_TASKS_ERROR,
-  GETBYID_TASK_PENDING,
-  GETBYID_TASK_SUCCESS,
-  GETBYID_TASK_ERROR,
-  CREATE_TASKS_PENDING,
-  CREATE_TASKS_SUCCESS,
-  CREATE_TASKS_ERROR,
-  UPDATE_TASKS_PENDING,
-  UPDATE_TASKS_SUCCESS,
-  UPDATE_TASKS_ERROR,
+  GETBYID_TASKS_PENDING,
+  GETBYID_TASKS_SUCCESS,
+  GETBYID_TASKS_ERROR,
+  POST_TASKS_PENDING,
+  POST_TASKS_SUCCESS,
+  POST_TASKS_ERROR,
+  PUT_TASKS_PENDING,
+  PUT_TASKS_SUCCESS,
+  PUT_TASKS_ERROR,
   DELETE_TASKS_PENDING,
   DELETE_TASKS_SUCCESS,
-  DELETE_TASKS_ERROR,
-  CONFIRM_MODAL_OPEN,
-  CONFIRM_MODAL_CLOSE,
-  MESSAGE_MODAL_OPEN,
-  MESSAGE_MODAL_CLOSE
+  DELETE_TASKS_ERROR
 } from './constants';
 
 const INITIAL_STATE = {
@@ -46,27 +42,83 @@ const tasksReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
         modalContent: { title: 'ERROR!', content: `Could not GET Tasks! ${action.payload}` },
         showModalMessage: true
       };
-    case GETBYID_TASK_PENDING:
+    case GETBYID_TASKS_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case GETBYID_TASK_SUCCESS:
+    case GETBYID_TASKS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         item: action.payload
       };
-    case GETBYID_TASK_ERROR:
+    case GETBYID_TASKS_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        modalContent: {
+          title: 'ERROR!',
+          content: `Could not GET Task! ${action.payload}`
+        },
+        showModalMessage: true
+      };
+    case POST_TASKS_PENDING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case POST_TASKS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        showModalConfirm: false,
+        modalContent: {
+          title: 'SUCCESS!',
+          content: `Task Successfully CREATED`
+        },
+        showModalMessage: true,
+        list: [...state.list, action.payload]
+      };
+    case POST_TASKS_ERROR:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
-        modalContent: { title: 'ERROR!', content: `Could not GET Task! ${action.payload}` },
+        modalContent: {
+          title: 'ERROR!',
+          content: `Could not CREATE Task! ${action.payload}`
+        },
+        showModalMessage: true
+      };
+    case PUT_TASKS_PENDING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case PUT_TASKS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        showModalConfirm: false,
+        modalContent: {
+          title: 'SUCCESS!',
+          content: `Task Successfully UPDATED`
+        },
+        showModalMessage: true,
+        list: [...state.list, action.payload]
+      };
+    case PUT_TASKS_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        modalContent: {
+          title: 'ERROR!',
+          content: `Could not UPDATE Task! ${action.payload}`
+        },
         showModalMessage: true
       };
     case DELETE_TASKS_PENDING:
@@ -81,7 +133,7 @@ const tasksReducer = (state = INITIAL_STATE, action) => {
         list: [...state.list.filter((task) => task._id !== action.payload)],
         modalContent: {
           title: 'SUCCESS',
-          content: `Task with id ${action.payload} successfully deleted`
+          content: `Task with id ${action.payload} successfully DELETED`
         },
         showModalMessage: true
       };
@@ -89,77 +141,11 @@ const tasksReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
-        modalContent: { title: 'ERROR!', content: `Could not DELETE Task! ${action.payload}` },
-        showModalMessage: true
-      };
-    case CREATE_TASKS_PENDING:
-      return {
-        ...state,
-        isLoading: true
-      };
-    case CREATE_TASKS_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        showModalConfirm: false,
-        modalContent: { title: 'SUCCESS!', content: `Task Successfully CREATED` },
-        showModalMessage: true,
-        list: [...state.list, action.payload]
-      };
-    case CREATE_TASKS_ERROR:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload,
-        modalContent: { title: 'ERROR!', content: `Could not CREATE Task! ${action.payload}` },
-        showModalMessage: true
-      };
-    case UPDATE_TASKS_PENDING:
-      return {
-        ...state,
-        isLoading: true
-      };
-    case UPDATE_TASKS_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        showModalConfirm: false,
-        modalContent: { title: 'SUCCESS!', content: `Task Successfully UPDATED` },
-        showModalMessage: true,
-        list: [...state.list, action.payload]
-      };
-    case UPDATE_TASKS_ERROR:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload,
-        modalContent: { title: 'ERROR!', content: `Could not UPDATE Task! ${action.payload}` },
-        showModalMessage: true
-      };
-    case CONFIRM_MODAL_OPEN:
-      return {
-        ...state,
         modalContent: {
-          title: 'Confirm:',
-          content: action.payload
+          title: 'ERROR!',
+          content: `Could not DELETE Task! ${action.payload}`
         },
-        showModalConfirm: true
-      };
-    case CONFIRM_MODAL_CLOSE:
-      return {
-        ...state,
-        showModalConfirm: false
-      };
-    case MESSAGE_MODAL_OPEN:
-      return {
-        ...state,
         showModalMessage: true
-      };
-    case MESSAGE_MODAL_CLOSE:
-      return {
-        ...state,
-        showModalMessage: false
       };
     default:
       return state;

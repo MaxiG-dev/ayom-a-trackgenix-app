@@ -8,8 +8,12 @@ import Buttons from 'Components/Shared/Button/index';
 import styles from './form.module.css';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { confirmModalOpen, confirmModalClose, messageModalClose } from 'redux/timesheets/actions';
-import { addTimeSheet, updateTimeSheet, getByIdTimesheet } from 'redux/timesheets/thunks';
+import {
+  confirmModalOpen,
+  confirmModalClose,
+  messageModalClose
+} from 'redux/shared/modals/actions';
+import { postTimeSheets, putTimeSheets, getByIdTimesheets } from 'redux/timesheets/thunks';
 import { getEmployees } from 'redux/employees/thunks';
 import { getTasks } from 'redux/tasks/thunks';
 import { getProjects } from 'redux/projects/thunks';
@@ -63,7 +67,7 @@ const Form = (props) => {
 
   useEffect(async () => {
     if (id) {
-      dispatch(getByIdTimesheet(id));
+      dispatch(getByIdTimesheets(id));
     }
   }, []);
 
@@ -99,7 +103,7 @@ const Form = (props) => {
   };
 
   const onConfirm = () => {
-    id ? dispatch(updateTimeSheet(timeSheetInput, id)) : dispatch(addTimeSheet(timeSheetInput));
+    id ? dispatch(putTimeSheets(timeSheetInput, id)) : dispatch(postTimeSheets(timeSheetInput));
     dispatch(confirmModalClose());
   };
 

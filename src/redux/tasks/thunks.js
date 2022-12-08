@@ -2,17 +2,17 @@ import {
   getTasksPending,
   getTasksSuccess,
   getTasksError,
-  getByIdTaskPending,
-  getByIdTaskSuccess,
-  getByIdTaskError,
+  getByIdTasksPending,
+  getByIdTasksSuccess,
+  getByIdTasksError,
+  postTasksSuccess,
+  postTasksPending,
+  postTasksError,
+  putTasksSuccess,
+  putTasksError,
   deleteTasksSuccess,
   deleteTasksPending,
-  deleteTasksError,
-  createTasksSuccess,
-  createTasksPending,
-  createTasksError,
-  updateTasksSuccess,
-  updateTasksError
+  deleteTasksError
 } from './actions';
 
 export const getTasks = (token) => {
@@ -30,22 +30,68 @@ export const getTasks = (token) => {
   };
 };
 
-export const getByIdTask = (id, token) => {
+export const getByIdTasks = (id, token) => {
   return async (dispatch) => {
-    dispatch(getByIdTaskPending());
+    dispatch(getByIdTasksPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, {
         headers: { token }
       });
       const data = await response.json();
       if (response.status == 200) {
-        dispatch(getByIdTaskSuccess(data.data));
+        dispatch(getByIdTasksSuccess(data.data));
       } else {
         const data = await response.json();
-        dispatch(getByIdTaskError(data.msg.toString()));
+        dispatch(getByIdTasksError(data.msg.toString()));
       }
     } catch (error) {
-      dispatch(getByIdTaskError(error.toString()));
+      dispatch(getByIdTasksError(error.toString()));
+    }
+  };
+};
+
+export const postTasks = (newTask) => {
+  return async (dispatch) => {
+    dispatch(postTasksPending());
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks`, {
+        method: 'POST',
+        body: JSON.stringify(newTask),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        }
+      });
+      if (response.status === 201) {
+        const data = await response.json();
+        dispatch(postTasksSuccess(data.data));
+      } else {
+        const data = await response.json();
+        dispatch(postTasksError(data.data));
+      }
+    } catch (error) {
+      dispatch(postTasksError(error.toString()));
+    }
+  };
+};
+
+export const putTasks = (data, id) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        }
+      });
+      if (response.status === 200) {
+        dispatch(putTasksSuccess(data, id));
+      } else {
+        const data = await response.json();
+        dispatch(putTasksError(data.data));
+      }
+    } catch (error) {
+      dispatch(putTasksError(error.toString()));
     }
   };
 };
@@ -65,52 +111,6 @@ export const deleteTasks = (id) => {
       }
     } catch (error) {
       dispatch(deleteTasksError(error.toString()));
-    }
-  };
-};
-
-export const createTask = (newTask) => {
-  return async (dispatch) => {
-    dispatch(createTasksPending());
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks`, {
-        method: 'POST',
-        body: JSON.stringify(newTask),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      });
-      if (response.status === 201) {
-        const data = await response.json();
-        dispatch(createTasksSuccess(data.data));
-      } else {
-        const data = await response.json();
-        dispatch(createTasksError(data.data));
-      }
-    } catch (error) {
-      dispatch(createTasksError(error.toString()));
-    }
-  };
-};
-
-export const updateTask = (data, id) => {
-  return async (dispatch) => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      });
-      if (response.status === 200) {
-        dispatch(updateTasksSuccess(data, id));
-      } else {
-        const data = await response.json();
-        dispatch(updateTasksError(data.data));
-      }
-    } catch (error) {
-      dispatch(updateTasksError(error.toString()));
     }
   };
 };

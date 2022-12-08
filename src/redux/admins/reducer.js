@@ -8,16 +8,12 @@ import {
   POST_ADMINS_PENDING,
   POST_ADMINS_SUCCESS,
   POST_ADMINS_ERROR,
-  UPDATE_ADMINS_PENDING,
-  UPDATE_ADMINS_SUCCESS,
-  UPDATE_ADMINS_ERROR,
+  PUT_ADMINS_PENDING,
+  PUT_ADMINS_SUCCESS,
+  PUT_ADMINS_ERROR,
   DELETE_ADMINS_PENDING,
   DELETE_ADMINS_SUCCESS,
-  DELETE_ADMINS_ERROR,
-  MESSAGE_MODAL_OPEN,
-  MESSAGE_MODAL_CLOSE,
-  CONFIRM_MODAL_OPEN,
-  CONFIRM_MODAL_CLOSE
+  DELETE_ADMINS_ERROR
 } from './constants';
 
 const INITIAL_STATE = {
@@ -88,7 +84,6 @@ const adminsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
         showConfirmModal: false,
         modalContent: {
           title: 'ERROR',
@@ -96,12 +91,12 @@ const adminsReducer = (state = INITIAL_STATE, action) => {
         },
         showModalMessage: true
       };
-    case UPDATE_ADMINS_PENDING:
+    case PUT_ADMINS_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case UPDATE_ADMINS_SUCCESS:
+    case PUT_ADMINS_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -113,7 +108,7 @@ const adminsReducer = (state = INITIAL_STATE, action) => {
         },
         showModalMessage: true
       };
-    case UPDATE_ADMINS_ERROR:
+    case PUT_ADMINS_ERROR:
       return {
         ...state,
         isLoading: false,
@@ -137,7 +132,7 @@ const adminsReducer = (state = INITIAL_STATE, action) => {
         list: [...state.list.filter((item) => item._id !== action.payload)],
         modalContent: {
           title: 'SUCCESS',
-          content: `Admins with id ${action.payload} successfully deleted`
+          content: `Admins with id ${action.payload} successfully DELETED`
         },
         showModalMessage: true
       };
@@ -151,34 +146,6 @@ const adminsReducer = (state = INITIAL_STATE, action) => {
           content: `Could not DELETE Admins! ${action.payload}`
         },
         showModalMessage: true
-      };
-    case MESSAGE_MODAL_OPEN:
-      return {
-        ...state,
-        modalContent: {
-          title: action.payload.title,
-          content: action.payload.content
-        },
-        showModalMessage: true
-      };
-    case MESSAGE_MODAL_CLOSE:
-      return {
-        ...state,
-        showModalMessage: false
-      };
-    case CONFIRM_MODAL_OPEN:
-      return {
-        ...state,
-        modalContent: {
-          title: 'Confirm:',
-          content: action.payload
-        },
-        showConfirmModal: true
-      };
-    case CONFIRM_MODAL_CLOSE:
-      return {
-        ...state,
-        showConfirmModal: false
       };
     default:
       return state;

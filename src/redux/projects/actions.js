@@ -2,22 +2,18 @@ import {
   GET_PROJECTS_PENDING,
   GET_PROJECTS_SUCCESS,
   GET_PROJECTS_ERROR,
-  CREATE_PROJECT_ERROR,
-  CREATE_PROJECT_PENDING,
-  CREATE_PROJECT_SUCCESS,
-  UPDATE_PROJECT_ERROR,
-  UPDATE_PROJECT_PENDING,
-  UPDATE_PROJECT_SUCCESS,
-  DELETE_PROJECT_ERROR,
-  DELETE_PROJECT_PENDING,
-  DELETE_PROJECT_SUCCESS,
-  MESSAGE_MODAL_OPEN,
-  MESSAGE_MODAL_CLOSE,
-  CONFIRM_MODAL_OPEN,
-  CONFIRM_MODAL_CLOSE,
-  GET_BY_ID_PROJECT_PENDING,
-  GET_BY_ID_PROJECT_SUCCESS,
-  GET_BY_ID_PROJECT_ERROR
+  GETBYID_PROJECTS_PENDING,
+  GETBYID_PROJECTS_SUCCESS,
+  GETBYID_PROJECTS_ERROR,
+  POST_PROJECTS_ERROR,
+  POST_PROJECTS_PENDING,
+  POST_PROJECTS_SUCCESS,
+  PUT_PROJECTS_ERROR,
+  PUT_PROJECTS_PENDING,
+  PUT_PROJECTS_SUCCESS,
+  DELETE_PROJECTS_ERROR,
+  DELETE_PROJECTS_PENDING,
+  DELETE_PROJECTS_SUCCESS
 } from './constants';
 
 export const getProjectsPending = () => {
@@ -42,107 +38,79 @@ export const getProjectsError = (error) => {
 
 export const getByIdProjectsPending = () => {
   return {
-    type: GET_BY_ID_PROJECT_PENDING
+    type: GETBYID_PROJECTS_PENDING
   };
 };
 
 export const getByIdProjectsSuccess = (data) => {
   return {
-    type: GET_BY_ID_PROJECT_SUCCESS,
+    type: GETBYID_PROJECTS_SUCCESS,
     payload: data
   };
 };
 
 export const getByIdProjectsError = (error) => {
   return {
-    type: GET_BY_ID_PROJECT_ERROR,
+    type: GETBYID_PROJECTS_ERROR,
     payload: error
   };
 };
 
-export const createProjectPending = () => {
+export const postProjectsPending = () => {
   return {
-    type: CREATE_PROJECT_PENDING
+    type: POST_PROJECTS_PENDING
   };
 };
 
-export const createProjectSuccess = (data, message) => {
+export const postProjectsSuccess = (data) => {
   return {
-    type: CREATE_PROJECT_SUCCESS,
-    payload: data,
-    msg: message
+    type: POST_PROJECTS_SUCCESS,
+    payload: data
   };
 };
 
-export const createProjectError = (error) => {
+export const postProjectsError = (error) => {
   return {
-    type: CREATE_PROJECT_ERROR,
+    type: POST_PROJECTS_ERROR,
     payload: error
   };
 };
 
-export const updateProjectPending = () => {
+export const putProjectsPending = () => {
   return {
-    type: UPDATE_PROJECT_PENDING
+    type: PUT_PROJECTS_PENDING
   };
 };
 
-export const updateProjectSuccess = (data, message) => {
+export const putProjectsSuccess = (data) => {
   return {
-    type: UPDATE_PROJECT_SUCCESS,
-    payload: data,
-    msg: message
+    type: PUT_PROJECTS_SUCCESS,
+    payload: data
   };
 };
 
-export const updateProjectError = (error) => {
+export const putProjectsError = (error) => {
   return {
-    type: UPDATE_PROJECT_ERROR,
+    type: PUT_PROJECTS_ERROR,
     payload: error
   };
 };
 
-export const deleteProjectPending = () => {
+export const deleteProjectsPending = () => {
   return {
-    type: DELETE_PROJECT_PENDING
+    type: DELETE_PROJECTS_PENDING
   };
 };
 
-export const deleteProjectSuccess = (payload) => {
+export const deleteProjectsSuccess = (data) => {
   return {
-    type: DELETE_PROJECT_SUCCESS,
-    payload
+    type: DELETE_PROJECTS_SUCCESS,
+    payload: data
   };
 };
 
-export const deleteProjectError = () => {
+export const deleteProjectsError = () => {
   return {
-    type: DELETE_PROJECT_ERROR
-  };
-};
-
-export const messageModalOpen = (content) => {
-  return {
-    type: MESSAGE_MODAL_OPEN,
-    payload: content
-  };
-};
-
-export const messageModalClose = () => {
-  return {
-    type: MESSAGE_MODAL_CLOSE
-  };
-};
-
-export const confirmModalOpen = (content) => {
-  return {
-    type: CONFIRM_MODAL_OPEN,
-    payload: content
-  };
-};
-
-export const confirmModalClose = () => {
-  return {
-    type: CONFIRM_MODAL_CLOSE
+    type: DELETE_PROJECTS_ERROR
   };
 };

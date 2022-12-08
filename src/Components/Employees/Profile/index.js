@@ -8,8 +8,12 @@ import styles from './profile.module.css';
 
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { confirmModalOpen, confirmModalClose, messageModalClose } from 'redux/employees/actions';
-import { getByIdEmployee, updateEmployee } from 'redux/employees/thunks';
+import {
+  confirmModalOpen,
+  confirmModalClose,
+  messageModalClose
+} from 'redux/shared/modals/actions';
+import { getByIdEmployees, putEmployees } from 'redux/employees/thunks';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { employeeSchema } from './validations';
@@ -39,7 +43,7 @@ const EmployeesProfile = () => {
   });
 
   useEffect(() => {
-    dispatch(getByIdEmployee(id, token));
+    dispatch(getByIdEmployees(id, token));
   }, []);
 
   useEffect(() => {
@@ -62,7 +66,7 @@ const EmployeesProfile = () => {
 
   const onConfirm = () => {
     !modalContent.content.includes('logout')
-      ? (dispatch(updateEmployee(id, formValues, token)), dispatch(confirmModalClose()))
+      ? (dispatch(putEmployees(id, formValues, token)), dispatch(confirmModalClose()))
       : dispatch(logout()),
       dispatch(confirmModalClose());
   };

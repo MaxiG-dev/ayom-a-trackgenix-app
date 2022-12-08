@@ -8,16 +8,12 @@ import {
   POST_ADMINS_PENDING,
   POST_ADMINS_SUCCESS,
   POST_ADMINS_ERROR,
-  UPDATE_ADMINS_PENDING,
-  UPDATE_ADMINS_SUCCESS,
-  UPDATE_ADMINS_ERROR,
+  PUT_ADMINS_PENDING,
+  PUT_ADMINS_SUCCESS,
+  PUT_ADMINS_ERROR,
   DELETE_ADMINS_PENDING,
   DELETE_ADMINS_SUCCESS,
-  DELETE_ADMINS_ERROR,
-  MESSAGE_MODAL_OPEN,
-  MESSAGE_MODAL_CLOSE,
-  CONFIRM_MODAL_OPEN,
-  CONFIRM_MODAL_CLOSE
+  DELETE_ADMINS_ERROR
 } from './constants';
 
 export const getAdminsPending = () => {
@@ -59,42 +55,42 @@ export const getByIdAdminsError = (error) => {
   };
 };
 
-export const createAdminsPending = () => {
+export const postAdminsPending = () => {
   return {
     type: POST_ADMINS_PENDING
   };
 };
 
-export const createAdminsSuccess = (data) => {
+export const postAdminsSuccess = (data) => {
   return {
     type: POST_ADMINS_SUCCESS,
     payload: data
   };
 };
 
-export const createAdminsError = (error) => {
+export const postAdminsError = (error) => {
   return {
     type: POST_ADMINS_ERROR,
     payload: error
   };
 };
 
-export const updateAdminsPending = () => {
+export const putAdminsPending = () => {
   return {
-    type: UPDATE_ADMINS_PENDING
+    type: PUT_ADMINS_PENDING
   };
 };
 
-export const updateAdminsSuccess = (data) => {
+export const putAdminsSuccess = (data) => {
   return {
-    type: UPDATE_ADMINS_SUCCESS,
+    type: PUT_ADMINS_SUCCESS,
     payload: data
   };
 };
 
-export const updateAdminsError = (error) => {
+export const putAdminsError = (error) => {
   return {
-    type: UPDATE_ADMINS_ERROR,
+    type: PUT_ADMINS_ERROR,
     payload: error
   };
 };
@@ -116,31 +112,5 @@ export const deleteAdminsError = (error) => {
   return {
     type: DELETE_ADMINS_ERROR,
     payload: error
-  };
-};
-
-export const messageModalOpen = (content) => {
-  return {
-    type: MESSAGE_MODAL_OPEN,
-    payload: content
-  };
-};
-
-export const messageModalClose = () => {
-  return {
-    type: MESSAGE_MODAL_CLOSE
-  };
-};
-
-export const confirmModalOpen = (content) => {
-  return {
-    type: CONFIRM_MODAL_OPEN,
-    payload: content
-  };
-};
-
-export const confirmModalClose = () => {
-  return {
-    type: CONFIRM_MODAL_CLOSE
   };
 };

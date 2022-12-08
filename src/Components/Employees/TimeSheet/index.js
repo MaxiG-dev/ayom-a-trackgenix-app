@@ -8,8 +8,12 @@ import styles from './timeSheet.module.css';
 import Sidebar from 'Components/Employees/Sidebar';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { confirmModalOpen, confirmModalClose, messageModalClose } from 'redux/timesheets/actions';
-import { addTimeSheet } from 'redux/timesheets/thunks';
+import {
+  confirmModalOpen,
+  confirmModalClose,
+  messageModalClose
+} from 'redux/shared/modals/actions';
+import { postTimeSheets } from 'redux/timesheets/thunks';
 import { getTasks } from 'redux/tasks/thunks';
 import { getProjects } from 'redux/projects/thunks';
 import { logout } from 'redux/auth/thunks';
@@ -76,7 +80,7 @@ const EmployeeTimeSheet = (props) => {
 
   const onConfirm = () => {
     !modalContent.content.includes('logout')
-      ? (dispatch(addTimeSheet(timeSheetInput, token)), dispatch(confirmModalClose()))
+      ? (dispatch(postTimeSheets(timeSheetInput, token)), dispatch(confirmModalClose()))
       : dispatch(logout()),
       dispatch(confirmModalClose());
   };

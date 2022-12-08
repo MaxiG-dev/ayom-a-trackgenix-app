@@ -1,23 +1,19 @@
 import {
-  GET_SUPER_ADMINS_PENDING,
-  GET_SUPER_ADMINS_SUCCESS,
-  GET_SUPER_ADMINS_ERROR,
-  GET_BY_ID_SUPER_ADMINS_PENDING,
-  GET_BY_ID_SUPER_ADMINS_SUCCESS,
-  GET_BY_ID_SUPER_ADMINS_ERROR,
-  POST_SUPER_ADMINS_PENDING,
-  POST_SUPER_ADMINS_SUCCESS,
-  POST_SUPER_ADMINS_ERROR,
-  UPDATE_SUPER_ADMINS_ERROR,
-  UPDATE_SUPER_ADMINS_PENDING,
-  UPDATE_SUPER_ADMINS_SUCCESS,
-  DELETE_SUPER_ADMINS_PENDING,
-  DELETE_SUPER_ADMINS_SUCCESS,
-  DELETE_SUPER_ADMINS_ERROR,
-  MESSAGE_MODAL_OPEN,
-  MESSAGE_MODAL_CLOSE,
-  CONFIRM_MODAL_OPEN,
-  CONFIRM_MODAL_CLOSE
+  GET_SUPERADMINS_PENDING,
+  GET_SUPERADMINS_SUCCESS,
+  GET_SUPERADMINS_ERROR,
+  GETBYID_SUPERADMINS_PENDING,
+  GETBYID_SUPERADMINS_SUCCESS,
+  GETBYID_SUPERADMINS_ERROR,
+  POST_SUPERADMINS_ERROR,
+  POST_SUPERADMINS_PENDING,
+  POST_SUPERADMINS_SUCCESS,
+  PUT_SUPERADMINS_PENDING,
+  PUT_SUPERADMINS_SUCCESS,
+  PUT_SUPERADMINS_ERROR,
+  DELETE_SUPERADMINS_PENDING,
+  DELETE_SUPERADMINS_SUCCESS,
+  DELETE_SUPERADMINS_ERROR
 } from './constants';
 
 const INITIAL_STATE = {
@@ -31,65 +27,66 @@ const INITIAL_STATE = {
 
 const superAdminsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case GET_SUPER_ADMINS_PENDING:
+    case GET_SUPERADMINS_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case GET_SUPER_ADMINS_SUCCESS:
+    case GET_SUPERADMINS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         list: action.payload
       };
-    case GET_SUPER_ADMINS_ERROR:
+    case GET_SUPERADMINS_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
         modalContent: { title: 'ERROR', content: `Could not GET SuperAdmin! ${action.payload}` },
         showModalMessage: true
       };
-    case GET_BY_ID_SUPER_ADMINS_PENDING:
+    case GETBYID_SUPERADMINS_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case GET_BY_ID_SUPER_ADMINS_SUCCESS:
+    case GETBYID_SUPERADMINS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         item: action.payload
       };
-    case GET_BY_ID_SUPER_ADMINS_ERROR:
+    case GETBYID_SUPERADMINS_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
-        modalContent: { title: 'ERROR', content: `Could not GET SuperAdmin! ${action.payload}` },
+        modalContent: {
+          title: 'ERROR',
+          content: `Could not GET SuperAdmin! ${action.payload}`
+        },
         showModalMessage: true
       };
-    case POST_SUPER_ADMINS_PENDING:
+    case POST_SUPERADMINS_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case POST_SUPER_ADMINS_SUCCESS:
+    case POST_SUPERADMINS_SUCCESS:
       return {
         ...state,
-        list: [...state.list, action.payload],
         isLoading: false,
         showConfirmModal: false,
+        list: [...state.list, action.payload],
         modalContent: {
           title: 'SUCCESS!',
           content: `SuperAdmin Successfully CREATED`
         },
         showModalMessage: true
       };
-    case POST_SUPER_ADMINS_ERROR:
+    case POST_SUPERADMINS_ERROR:
       return {
+        ...state,
         isLoading: false,
-        error: action.payload,
         showConfirmModal: false,
         modalContent: {
           title: 'ERROR!',
@@ -97,12 +94,12 @@ const superAdminsReducer = (state = INITIAL_STATE, action) => {
         },
         showModalMessage: true
       };
-    case UPDATE_SUPER_ADMINS_PENDING:
+    case PUT_SUPERADMINS_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case UPDATE_SUPER_ADMINS_SUCCESS:
+    case PUT_SUPERADMINS_SUCCESS:
       return {
         ...state,
         list: [...state.list, action.payload],
@@ -114,71 +111,41 @@ const superAdminsReducer = (state = INITIAL_STATE, action) => {
         },
         showModalMessage: true
       };
-    case UPDATE_SUPER_ADMINS_ERROR:
+    case PUT_SUPERADMINS_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
         modalContent: {
           title: 'ERROR',
           content: `Could not UPDATE SuperAdmin`
         },
         showModalMessage: true
       };
-    case DELETE_SUPER_ADMINS_PENDING:
+    case DELETE_SUPERADMINS_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case DELETE_SUPER_ADMINS_SUCCESS:
+    case DELETE_SUPERADMINS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         list: [...state.list.filter((item) => item._id !== action.payload)],
         modalContent: {
           title: 'SUCCESS!',
-          content: `SuperAdmin whit id ${action.payload} successfully deleted`
+          content: `SuperAdmin whit id ${action.payload} successfully DELETED`
         },
         showModalMessage: true
       };
-    case DELETE_SUPER_ADMINS_ERROR:
+    case DELETE_SUPERADMINS_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
         modalContent: {
           title: 'ERROR!',
           content: `Could not DELETE SuperAdmin`
         },
         showModalMessage: true
-      };
-    case MESSAGE_MODAL_OPEN:
-      return {
-        ...state,
-        modalContent: {
-          title: action.payload.title,
-          content: action.payload.content
-        },
-        showModalMessage: true
-      };
-    case MESSAGE_MODAL_CLOSE:
-      return {
-        ...state,
-        showModalMessage: false
-      };
-    case CONFIRM_MODAL_OPEN:
-      return {
-        ...state,
-        modalContent: {
-          title: 'Confirm:',
-          content: action.payload
-        },
-        showConfirmModal: true
-      };
-    case CONFIRM_MODAL_CLOSE:
-      return {
-        ...state,
-        showConfirmModal: false
       };
     default:
       return state;

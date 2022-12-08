@@ -2,22 +2,18 @@ import {
   GET_TASKS_PENDING,
   GET_TASKS_SUCCESS,
   GET_TASKS_ERROR,
-  GETBYID_TASK_PENDING,
-  GETBYID_TASK_SUCCESS,
-  GETBYID_TASK_ERROR,
-  CREATE_TASKS_PENDING,
-  CREATE_TASKS_SUCCESS,
-  CREATE_TASKS_ERROR,
-  UPDATE_TASKS_PENDING,
-  UPDATE_TASKS_SUCCESS,
-  UPDATE_TASKS_ERROR,
+  GETBYID_TASKS_PENDING,
+  GETBYID_TASKS_SUCCESS,
+  GETBYID_TASKS_ERROR,
+  POST_TASKS_PENDING,
+  POST_TASKS_SUCCESS,
+  POST_TASKS_ERROR,
+  PUT_TASKS_PENDING,
+  PUT_TASKS_SUCCESS,
+  PUT_TASKS_ERROR,
   DELETE_TASKS_PENDING,
   DELETE_TASKS_SUCCESS,
-  DELETE_TASKS_ERROR,
-  CONFIRM_MODAL_OPEN,
-  CONFIRM_MODAL_CLOSE,
-  MESSAGE_MODAL_OPEN,
-  MESSAGE_MODAL_CLOSE
+  DELETE_TASKS_ERROR
 } from './constants';
 
 export const getTasksPending = () => {
@@ -40,61 +36,61 @@ export const getTasksError = (error) => {
   };
 };
 
-export const getByIdTaskPending = () => {
+export const getByIdTasksPending = () => {
   return {
-    type: GETBYID_TASK_PENDING
+    type: GETBYID_TASKS_PENDING
   };
 };
 
-export const getByIdTaskSuccess = (data) => {
+export const getByIdTasksSuccess = (data) => {
   return {
-    type: GETBYID_TASK_SUCCESS,
+    type: GETBYID_TASKS_SUCCESS,
     payload: data
   };
 };
 
-export const getByIdTaskError = (error) => {
+export const getByIdTasksError = (error) => {
   return {
-    type: GETBYID_TASK_ERROR,
+    type: GETBYID_TASKS_ERROR,
     payload: error
   };
 };
-export const createTasksPending = () => {
+export const postTasksPending = () => {
   return {
-    type: CREATE_TASKS_PENDING
+    type: POST_TASKS_PENDING
   };
 };
 
-export const createTasksSuccess = (data) => {
+export const postTasksSuccess = (data) => {
   return {
-    type: CREATE_TASKS_SUCCESS,
+    type: POST_TASKS_SUCCESS,
     payload: data
   };
 };
 
-export const createTasksError = (error) => {
+export const postTasksError = (error) => {
   return {
-    type: CREATE_TASKS_ERROR,
+    type: POST_TASKS_ERROR,
     payload: error
   };
 };
 
-export const updateTasksPending = () => {
+export const putTasksPending = () => {
   return {
-    type: UPDATE_TASKS_PENDING
+    type: PUT_TASKS_PENDING
   };
 };
 
-export const updateTasksSuccess = (data) => {
+export const putTasksSuccess = (data) => {
   return {
-    type: UPDATE_TASKS_SUCCESS,
+    type: PUT_TASKS_SUCCESS,
     payload: data
   };
 };
 
-export const updateTasksError = (error) => {
+export const putTasksError = (error) => {
   return {
-    type: UPDATE_TASKS_ERROR,
+    type: PUT_TASKS_ERROR,
     payload: error
   };
 };
@@ -105,10 +101,10 @@ export const deleteTasksPending = () => {
   };
 };
 
-export const deleteTasksSuccess = (id) => {
+export const deleteTasksSuccess = (data) => {
   return {
     type: DELETE_TASKS_SUCCESS,
-    payload: id
+    payload: data
   };
 };
 
@@ -116,31 +112,5 @@ export const deleteTasksError = (error) => {
   return {
     type: DELETE_TASKS_ERROR,
     payload: error
-  };
-};
-
-export const confirmModalOpen = (content) => {
-  return {
-    type: CONFIRM_MODAL_OPEN,
-    payload: content
-  };
-};
-
-export const confirmModalClose = () => {
-  return {
-    type: CONFIRM_MODAL_CLOSE
-  };
-};
-
-export const messageModalOpen = (content) => {
-  return {
-    type: MESSAGE_MODAL_OPEN,
-    payload: content
-  };
-};
-
-export const messageModalClose = () => {
-  return {
-    type: MESSAGE_MODAL_CLOSE
   };
 };
