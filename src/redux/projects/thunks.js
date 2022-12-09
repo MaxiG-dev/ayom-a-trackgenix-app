@@ -50,7 +50,7 @@ export const getByIdProjects = (id, token) => {
   };
 };
 
-export const postProjects = (input, employees, token) => {
+export const postProjects = (newProject, employees, token) => {
   return async (dispatch) => {
     dispatch(postProjectsPending());
     try {
@@ -62,19 +62,14 @@ export const postProjects = (input, employees, token) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name: input.name,
-          description: input.description,
-          startDate: input.startDate,
-          endDate: input.endDate,
-          clientName: input.clientName,
+          newProject,
           employees
         })
       });
+      const data = await response.json();
       if (response.status == 201) {
-        const data = await response.json();
         dispatch(postProjectsSuccess(data.data, data.message));
       } else {
-        const data = await response.json();
         dispatch(postProjectsError(data.data));
       }
     } catch (error) {
@@ -83,7 +78,7 @@ export const postProjects = (input, employees, token) => {
   };
 };
 
-export const putProjects = (id, input, employees, token) => {
+export const putProjects = (id, newProject, employees, token) => {
   return async (dispatch) => {
     dispatch(putProjectsPending());
     try {
@@ -95,19 +90,14 @@ export const putProjects = (id, input, employees, token) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name: input.name,
-          description: input.description,
-          startDate: input.startDate,
-          endDate: input.endDate,
-          clientName: input.clientName,
+          newProject,
           employees
         })
       });
+      const data = await response.json();
       if (response.status == 200) {
-        const data = await response.json();
         dispatch(putProjectsSuccess(data.data, data.message));
       } else {
-        const data = await response.json();
         dispatch(putProjectsError(data.data));
       }
     } catch (error) {

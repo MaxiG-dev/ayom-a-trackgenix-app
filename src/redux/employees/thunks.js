@@ -50,7 +50,7 @@ export const getByIdEmployees = (id, token) => {
   };
 };
 
-export const postEmployees = (newEmployees) => {
+export const postEmployees = (newEmployee) => {
   return async (dispatch) => {
     dispatch(postEmployeesPending());
     try {
@@ -59,7 +59,7 @@ export const postEmployees = (newEmployees) => {
         headers: {
           'Content-Type': 'application/json; charset=UTF-8'
         },
-        body: JSON.stringify(newEmployees)
+        body: JSON.stringify(newEmployee)
       });
       if (response.status == 201) {
         dispatch(postEmployeesSuccess(response));
@@ -73,7 +73,7 @@ export const postEmployees = (newEmployees) => {
   };
 };
 
-export const putEmployees = (id, data, token) => {
+export const putEmployees = (id, newEmployee, token) => {
   return async (dispatch) => {
     dispatch(putEmployeesPending());
     try {
@@ -83,18 +83,12 @@ export const putEmployees = (id, data, token) => {
           token,
           'Content-Type': 'application/json; charset=UTF-8'
         },
-        body: JSON.stringify({
-          name: data.name,
-          lastName: data.lastName,
-          email: data.email,
-          password: data.password,
-          phone: data.phone
-        })
+        body: JSON.stringify(newEmployee)
       });
+      const data = await response.json();
       if (response.status === 200) {
         dispatch(putEmployeesSuccess(response));
       } else {
-        const data = await response.json();
         dispatch(putEmployeesError(data.data));
       }
     } catch (error) {

@@ -63,11 +63,10 @@ export const postTasks = (newTask, token) => {
         },
         body: JSON.stringify(newTask)
       });
+      const data = await response.json();
       if (response.status === 201) {
-        const data = await response.json();
         dispatch(postTasksSuccess(data.data));
       } else {
-        const data = await response.json();
         dispatch(postTasksError(data.data));
       }
     } catch (error) {
@@ -76,7 +75,7 @@ export const postTasks = (newTask, token) => {
   };
 };
 
-export const putTasks = (data, id, token) => {
+export const putTasks = (newTask, id, token) => {
   return async (dispatch) => {
     dispatch(putTasksPending());
     try {
@@ -87,12 +86,12 @@ export const putTasks = (data, id, token) => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(newTask)
       });
+      const data = await response.json();
       if (response.status === 200) {
         dispatch(putTasksSuccess(data, id));
       } else {
-        const data = await response.json();
         dispatch(putTasksError(data.data));
       }
     } catch (error) {

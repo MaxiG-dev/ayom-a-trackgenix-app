@@ -50,7 +50,7 @@ export const getByIdSuperAdmins = (id) => {
   };
 };
 
-export const postSuperAdmin = (input) => {
+export const postSuperAdmin = (newSuperAdmin) => {
   return async (dispatch) => {
     dispatch(postSuperAdminsPending());
     try {
@@ -60,18 +60,12 @@ export const postSuperAdmin = (input) => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: input.name,
-          lastName: input.lastName,
-          email: input.email,
-          password: input.password
-        })
+        body: JSON.stringify(newSuperAdmin)
       });
+      const data = await response.json();
       if (response.status == 201) {
-        const data = await response.json();
         dispatch(postSuperAdminsSuccess(data.data, data.message));
       } else {
-        const data = await response.json();
         dispatch(postSuperAdminsError(data.data));
       }
     } catch (error) {
@@ -80,7 +74,7 @@ export const postSuperAdmin = (input) => {
   };
 };
 
-export const putSuperAdmin = (input, id) => {
+export const putSuperAdmin = (newSuperAdmin, id) => {
   return async (dispatch) => {
     dispatch(putSuperAdminsPending());
     try {
@@ -90,18 +84,12 @@ export const putSuperAdmin = (input, id) => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: input.name,
-          lastName: input.lastName,
-          email: input.email,
-          password: input.password
-        })
+        body: JSON.stringify(newSuperAdmin)
       });
+      const data = await response.json();
       if (response.status == 200) {
-        const data = await response.json();
         dispatch(putSuperAdminsSuccess(data.data, data.message));
       } else {
-        const data = await response.json();
         dispatch(putSuperAdminsError(data.data));
       }
     } catch (error) {

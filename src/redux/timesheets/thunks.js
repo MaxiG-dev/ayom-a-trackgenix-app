@@ -50,7 +50,7 @@ export const getByIdTimesheets = (id, token) => {
   };
 };
 
-export const postTimeSheets = (input, token) => {
+export const postTimeSheets = (newTimeSheet, token) => {
   return async (dispatch) => {
     dispatch(postTimesheetsPending());
     try {
@@ -61,20 +61,12 @@ export const postTimeSheets = (input, token) => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          description: input.description,
-          date: input.date,
-          hours: input.hours,
-          task: input.task,
-          employee: input.employee,
-          project: input.project
-        })
+        body: JSON.stringify(newTimeSheet)
       });
+      const data = await response.json();
       if (response.status == 201) {
-        const data = await response.json();
         dispatch(postTimesheetsSuccess(data.data, data.message));
       } else {
-        const data = await response.json();
         dispatch(postTimesheetsError(data.data));
       }
     } catch (error) {
@@ -83,7 +75,7 @@ export const postTimeSheets = (input, token) => {
   };
 };
 
-export const updateTimeSheet = (input, id, token) => {
+export const putTimeSheet = (newTimeSheet, id, token) => {
   return async (dispatch) => {
     dispatch(putTimesheetsPending);
     try {
@@ -94,20 +86,12 @@ export const updateTimeSheet = (input, id, token) => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          description: input.description,
-          date: input.date,
-          hours: input.hours,
-          task: input.task,
-          employee: input.employee,
-          project: input.project
-        })
+        body: JSON.stringify(newTimeSheet)
       });
+      const data = await response.json();
       if (response.status == 200) {
-        const data = await response.json();
         dispatch(putTimesheetsSuccess(data.data, data.message));
       } else {
-        const data = await response.json();
         dispatch(putTimesheetsError(data.data));
       }
     } catch (error) {

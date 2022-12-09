@@ -50,7 +50,7 @@ export const getByIdAdmins = (id, token) => {
   };
 };
 
-export const postAdmins = (input, token) => {
+export const postAdmins = (newAdmin, token) => {
   return async (dispatch) => {
     dispatch(postAdminsPending());
     try {
@@ -61,18 +61,12 @@ export const postAdmins = (input, token) => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: input.name,
-          lastName: input.lastName,
-          email: input.email,
-          password: input.password
-        })
+        body: JSON.stringify(newAdmin)
       });
+      const data = await response.json();
       if (response.status == 200) {
-        const data = await response.json();
         dispatch(postAdminsSuccess(data.data, data.message));
       } else {
-        const data = await response.json();
         dispatch(postAdminsError(data.data));
       }
     } catch (error) {
@@ -81,7 +75,7 @@ export const postAdmins = (input, token) => {
   };
 };
 
-export const putAdmins = (input, id, token) => {
+export const putAdmins = (newAdmin, id, token) => {
   return async (dispatch) => {
     dispatch(putAdminsPending());
     try {
@@ -92,18 +86,12 @@ export const putAdmins = (input, id, token) => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: input.name,
-          lastName: input.lastName,
-          email: input.email,
-          password: input.password
-        })
+        body: JSON.stringify(newAdmin)
       });
+      const data = await response.json();
       if (response.status == 200) {
-        const data = await response.json();
         dispatch(putAdminsSuccess(data.data, data.message));
       } else {
-        const data = await response.json();
         dispatch(putAdminsError(data.data));
       }
     } catch (error) {
