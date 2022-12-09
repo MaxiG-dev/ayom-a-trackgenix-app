@@ -50,13 +50,14 @@ export const getByIdProjects = (id, token) => {
   };
 };
 
-export const postProjects = (input, employees) => {
+export const postProjects = (input, employees, token) => {
   return async (dispatch) => {
     dispatch(postProjectsPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/projects`, {
         method: 'POST',
         headers: {
+          token,
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
@@ -82,13 +83,14 @@ export const postProjects = (input, employees) => {
   };
 };
 
-export const putProjects = (id, input, employees) => {
+export const putProjects = (id, input, employees, token) => {
   return async (dispatch) => {
     dispatch(putProjectsPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`, {
         method: 'PUT',
         headers: {
+          token,
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
@@ -114,12 +116,17 @@ export const putProjects = (id, input, employees) => {
   };
 };
 
-export const deleteProjects = (id) => {
+export const deleteProjects = (id, token) => {
   return async (dispatch) => {
     dispatch(deleteProjectsPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
       });
       if (response.status == 204) {
         dispatch(deleteProjectsPending(id));

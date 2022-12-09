@@ -5,15 +5,15 @@ import {
   getByIdTimesheetsPending,
   getByIdTimesheetsSuccess,
   getByIdTimesheetsError,
-  deleteTimesheetsPending,
-  deleteTimesheetsSuccess,
-  deleteTimesheetsError,
   postTimesheetsPending,
   postTimesheetsSuccess,
   postTimesheetsError,
   putTimesheetsPending,
   putTimesheetsSuccess,
-  putTimesheetsError
+  putTimesheetsError,
+  deleteTimesheetsPending,
+  deleteTimesheetsSuccess,
+  deleteTimesheetsError
 } from './actions';
 
 export const getTimesheets = (token) => {
@@ -83,30 +83,6 @@ export const postTimeSheets = (input, token) => {
   };
 };
 
-export const deleteTimeSheets = (id, token) => {
-  return async (dispatch) => {
-    dispatch(deleteTimesheetsPending());
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/timesheets/${id}`, {
-        method: 'DELETE',
-        headers: {
-          token,
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      if (response.status == 204) {
-        dispatch(deleteTimesheetsSuccess(id));
-      } else {
-        const data = await response.json();
-        dispatch(deleteTimesheetsError(data.data));
-      }
-    } catch (error) {
-      dispatch(deleteTimesheetsError(error.toString()));
-    }
-  };
-};
-
 export const updateTimeSheet = (input, id, token) => {
   return async (dispatch) => {
     dispatch(putTimesheetsPending);
@@ -136,6 +112,30 @@ export const updateTimeSheet = (input, id, token) => {
       }
     } catch (error) {
       dispatch(putTimesheetsError(error.toString()));
+    }
+  };
+};
+
+export const deleteTimeSheets = (id, token) => {
+  return async (dispatch) => {
+    dispatch(deleteTimesheetsPending());
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/timesheets/${id}`, {
+        method: 'DELETE',
+        headers: {
+          token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      if (response.status == 204) {
+        dispatch(deleteTimesheetsSuccess(id));
+      } else {
+        const data = await response.json();
+        dispatch(deleteTimesheetsError(data.data));
+      }
+    } catch (error) {
+      dispatch(deleteTimesheetsError(error.toString()));
     }
   };
 };

@@ -16,11 +16,13 @@ import {
   deleteAdminsError
 } from './actions';
 
-export const getAdmins = () => {
+export const getAdmins = (token) => {
   return async (dispatch) => {
     dispatch(getAdminsPending());
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/admin`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/admin`, {
+        headers: token
+      });
       const json = await response.json();
       dispatch(getAdminsSuccess(json.data));
     } catch (error) {
@@ -29,16 +31,17 @@ export const getAdmins = () => {
   };
 };
 
-export const getByIdAdmin = (id) => {
+export const getByIdAdmins = (id, token) => {
   return async (dispatch) => {
     dispatch(getByIdAdminsPending());
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/admin/${id}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/admin/${id}`, {
+        headers: token
+      });
       const data = await response.json();
       if (response.status == 200) {
         dispatch(getByIdAdminsSuccess(data.data));
       } else {
-        const data = await response.json();
         dispatch(getByIdAdminsError(data.msg.toString()));
       }
     } catch (error) {
@@ -47,13 +50,14 @@ export const getByIdAdmin = (id) => {
   };
 };
 
-export const postAdmins = (input) => {
+export const postAdmins = (input, token) => {
   return async (dispatch) => {
     dispatch(postAdminsPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/admin`, {
         method: 'POST',
         headers: {
+          token,
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
@@ -64,7 +68,7 @@ export const postAdmins = (input) => {
           password: input.password
         })
       });
-      if (response.status == 201) {
+      if (response.status == 200) {
         const data = await response.json();
         dispatch(postAdminsSuccess(data.data, data.message));
       } else {
@@ -77,13 +81,14 @@ export const postAdmins = (input) => {
   };
 };
 
-export const putAdmins = (input, id) => {
+export const putAdmins = (input, id, token) => {
   return async (dispatch) => {
     dispatch(putAdminsPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/admin/${id}`, {
         method: 'PUT',
         headers: {
+          token,
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
@@ -107,12 +112,17 @@ export const putAdmins = (input, id) => {
   };
 };
 
-export const deleteAdmins = (id) => {
+export const deleteAdmins = (id, token) => {
   return async (dispatch) => {
     dispatch(deleteAdminsPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/admin/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
       });
       if (response.status == 204) {
         dispatch(deleteAdminsSuccess(id));

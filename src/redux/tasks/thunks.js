@@ -8,6 +8,7 @@ import {
   postTasksSuccess,
   postTasksPending,
   postTasksError,
+  putTasksPending,
   putTasksSuccess,
   putTasksError,
   deleteTasksSuccess,
@@ -50,16 +51,17 @@ export const getByIdTasks = (id, token) => {
   };
 };
 
-export const postTasks = (newTask) => {
+export const postTasks = (newTask, token) => {
   return async (dispatch) => {
     dispatch(postTasksPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks`, {
         method: 'POST',
-        body: JSON.stringify(newTask),
         headers: {
+          token,
           'Content-type': 'application/json; charset=UTF-8'
-        }
+        },
+        body: JSON.stringify(newTask)
       });
       if (response.status === 201) {
         const data = await response.json();
@@ -74,15 +76,18 @@ export const postTasks = (newTask) => {
   };
 };
 
-export const putTasks = (data, id) => {
+export const putTasks = (data, id, token) => {
   return async (dispatch) => {
+    dispatch(putTasksPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, {
         method: 'PUT',
-        body: JSON.stringify(data),
         headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
+          token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
       });
       if (response.status === 200) {
         dispatch(putTasksSuccess(data, id));
@@ -96,12 +101,17 @@ export const putTasks = (data, id) => {
   };
 };
 
-export const deleteTasks = (id) => {
+export const deleteTasks = (id, token) => {
   return async (dispatch) => {
     dispatch(deleteTasksPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
       });
       if (response.status === 204) {
         dispatch(deleteTasksSuccess(id));

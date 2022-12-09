@@ -16,11 +16,13 @@ import {
   deleteEmployeesError
 } from './actions';
 
-export const getEmployees = () => {
+export const getEmployees = (token) => {
   return async (dispatch) => {
     dispatch(getEmployeesPending());
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/employees`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/employees`, {
+        headers: token
+      });
       const data = await response.json();
       dispatch(getEmployeesSuccess(data.data));
     } catch (error) {
@@ -101,13 +103,14 @@ export const putEmployees = (id, data, token) => {
   };
 };
 
-export const deleteEmployees = (id) => {
+export const deleteEmployees = (id, token) => {
   return async (dispatch) => {
     dispatch(deleteEmployeesPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/employees/${id}`, {
         method: 'DELETE',
         headers: {
+          token,
           'Content-type': 'application/json; charset=UTF-8'
         }
       });
