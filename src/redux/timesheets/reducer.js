@@ -79,7 +79,7 @@ const timesheetsReducer = (state = INITIAL_STATE, action) => {
         showConfirmModal: false,
         modalContent: {
           title: 'SUCCESS!',
-          content: `TimeSheet Successfully CREATED`
+          content: 'TimeSheet Successfully CREATED'
         },
         showModalMessage: true
       };
@@ -107,7 +107,7 @@ const timesheetsReducer = (state = INITIAL_STATE, action) => {
         showConfirmModal: false,
         modalContent: {
           title: 'SUCCESS!',
-          content: `TimeSheet Successfully UPDATED`
+          content: 'TimeSheet Successfully UPDATED'
         },
         showModalMessage: true
       };
@@ -133,7 +133,7 @@ const timesheetsReducer = (state = INITIAL_STATE, action) => {
         list: [...state.list.filter((item) => item._id !== action.payload)],
         modalContent: {
           title: 'SUCCESS!',
-          content: `Timesheet whit id ${action.payload} successfully DELETED`
+          content: 'Timesheet successfully DELETED'
         },
         showModalMessage: true
       };

@@ -76,7 +76,7 @@ const adminsReducer = (state = INITIAL_STATE, action) => {
         showConfirmModal: false,
         modalContent: {
           title: 'SUCCESS',
-          content: `Admins Successfully CREATED`
+          content: 'Admins Successfully CREATED'
         },
         showModalMessage: true
       };
@@ -132,7 +132,7 @@ const adminsReducer = (state = INITIAL_STATE, action) => {
         list: [...state.list.filter((item) => item._id !== action.payload)],
         modalContent: {
           title: 'SUCCESS',
-          content: `Admins with id ${action.payload} successfully DELETED`
+          content: 'Admins successfully DELETED'
         },
         showModalMessage: true
       };

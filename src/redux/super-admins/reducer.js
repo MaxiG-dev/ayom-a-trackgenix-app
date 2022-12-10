@@ -79,7 +79,7 @@ const superAdminsReducer = (state = INITIAL_STATE, action) => {
         list: [...state.list, action.payload],
         modalContent: {
           title: 'SUCCESS!',
-          content: `SuperAdmin Successfully CREATED`
+          content: 'SuperAdmin Successfully CREATED'
         },
         showModalMessage: true
       };
@@ -90,7 +90,7 @@ const superAdminsReducer = (state = INITIAL_STATE, action) => {
         showConfirmModal: false,
         modalContent: {
           title: 'ERROR!',
-          content: `Could not CREATE SuperAdmin`
+          content: 'Could not CREATE SuperAdmin'
         },
         showModalMessage: true
       };
@@ -107,7 +107,7 @@ const superAdminsReducer = (state = INITIAL_STATE, action) => {
         showConfirmModal: false,
         modalContent: {
           title: 'SUCCESS!',
-          content: `SuperAdmin Successfully UPDATED`
+          content: 'SuperAdmin Successfully UPDATED'
         },
         showModalMessage: true
       };
@@ -117,7 +117,7 @@ const superAdminsReducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
         modalContent: {
           title: 'ERROR',
-          content: `Could not UPDATE SuperAdmin`
+          content: 'Could not UPDATE SuperAdmin'
         },
         showModalMessage: true
       };
@@ -133,7 +133,7 @@ const superAdminsReducer = (state = INITIAL_STATE, action) => {
         list: [...state.list.filter((item) => item._id !== action.payload)],
         modalContent: {
           title: 'SUCCESS!',
-          content: `SuperAdmin whit id ${action.payload} successfully DELETED`
+          content: 'SuperAdmin successfully DELETED'
         },
         showModalMessage: true
       };
@@ -143,7 +143,7 @@ const superAdminsReducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
         modalContent: {
           title: 'ERROR!',
-          content: `Could not DELETE SuperAdmin`
+          content: 'Could not DELETE SuperAdmin'
         },
         showModalMessage: true
       };

@@ -79,7 +79,7 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
         list: [...state.list, action.payload],
         modalContent: {
           title: 'SUCCESS!',
-          content: `Project Successfully CREATED`
+          content: 'Project Successfully CREATED'
         },
         showModalMessage: true
       };
@@ -106,7 +106,7 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
         showConfirmModal: false,
         modalContent: {
           title: 'SUCCESS!',
-          content: `Project Successfully UPDATED`
+          content: 'Project Successfully UPDATED'
         },
         showModalMessage: true,
         list: [...state.list, action.payload]
@@ -133,7 +133,7 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
         list: [...state.list.filter((item) => item._id !== action.payload)],
         modalContent: {
           title: 'SUCCESS!',
-          content: `Project whit id ${action.payload} successfully DELETED`
+          content: 'Project successfully DELETED'
         },
         showModalMessage: true
       };

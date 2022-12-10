@@ -78,7 +78,7 @@ const tasksReducer = (state = INITIAL_STATE, action) => {
         showModalConfirm: false,
         modalContent: {
           title: 'SUCCESS!',
-          content: `Task Successfully CREATED`
+          content: 'Task Successfully CREATED'
         },
         showModalMessage: true,
         list: [...state.list, action.payload]
@@ -106,7 +106,7 @@ const tasksReducer = (state = INITIAL_STATE, action) => {
         showModalConfirm: false,
         modalContent: {
           title: 'SUCCESS!',
-          content: `Task Successfully UPDATED`
+          content: 'Task Successfully UPDATED'
         },
         showModalMessage: true,
         list: [...state.list, action.payload]
@@ -133,7 +133,7 @@ const tasksReducer = (state = INITIAL_STATE, action) => {
         list: [...state.list.filter((task) => task._id !== action.payload)],
         modalContent: {
           title: 'SUCCESS',
-          content: `Task with id ${action.payload} successfully DELETED`
+          content: 'Task successfully DELETED'
         },
         showModalMessage: true
       };
