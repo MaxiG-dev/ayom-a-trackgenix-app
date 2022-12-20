@@ -45,6 +45,7 @@ export const logout = () => {
     try {
       await signOut(auth);
       sessionStorage.clear();
+      window.location.reload();
       dispatch(firebaseLogoutSuccess());
     } catch (error) {
       dispatch(firebaseLogoutError());

@@ -6,6 +6,7 @@ import { tokenListener } from 'helpers/firebase';
 import Footer from 'Components/Footer';
 import Header from 'Components/Header';
 import { Spinner } from 'Components/Shared/Spinner';
+import Sidebar from 'Components/Shared/Sidebar';
 
 const Home = lazy(() => import('./home'));
 const AuthRoutes = lazy(() => import('./auth'));
@@ -22,6 +23,7 @@ const Layout = () => {
     <Suspense fallback={<Spinner />}>
       <div className={styles.container}>
         <Header />
+        <Sidebar />
         <Switch>
           <Route path="/home" component={Home} />
           <Route path="/auth" component={AuthRoutes} />
